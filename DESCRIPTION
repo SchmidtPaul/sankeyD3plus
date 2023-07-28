@@ -1,0 +1,39 @@
+Type: Package
+Package: sankeyD3plus
+Title: D3 JavaScript Sankey Graphs from R
+Description: Creates 'D3' 'JavaScript' Sankey graphs from 'R'.
+Version: 0.1
+Date: 2023-07-28
+Authors@R: c(
+    person("Florian","Breitwieser", role = c("aut"), comment = "github.com/fbreitwieser/sankeyD3"),
+    person("Christopher", "Gandrud", role = "aut"),
+    person("J.J.", "Allaire", role = "aut"),
+    person("Kenton", "Russell", role = "aut"),
+    person("Mike", "Bostock", role = c("aut", "cph")
+         , comment = "d3.js library, http://d3js.org"
+       ),
+    person("B.W.", "Lewis", role = "ctb"),
+    person("Kevin", "Kuo", role = "ctb"),
+    person("Charles", "Sese", role = "ctb"),
+    person("Peter", "Ellis", role = "ctb"),
+    person("Jonathan", "Owen", role = "ctb"),
+    person("Jennifer","Rogers", role = "ctb"),
+    person("Alexander", "Tarashansky", role = "ctb", comment = "github.com/atarashansky/sankeyD3/tree/master"),
+    person("Paul", "Schmidt", email = "paul.schmidt@biomath.de", role = c("aut", "cre"))
+    )
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends:
+    R (>= 3.0.0)
+Imports:
+    d3r,
+    htmlwidgets (>= 0.3.2),
+    magrittr
+Suggests:
+    htmltools (>= 0.2.6),
+    igraph,
+    jsonlite
+Enhances: knitr, shiny
+LazyData: true

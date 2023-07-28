@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>/404.html</loc>
+  </url>
+  <url>
+    <loc>/authors.html</loc>
+  </url>
+  <url>
+    <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>/reference/igraph_to_networkD3.html</loc>
+  </url>
+  <url>
+    <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/JS.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sankeyD3-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sankeyD3-shiny.html</loc>
+  </url>
+  <url>
+    <loc>/reference/sankeyNetwork.html</loc>
+  </url>
+  <url>
+    <loc>/reference/saveNetwork.html</loc>
+  </url>
+</urlset>
