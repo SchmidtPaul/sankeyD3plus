@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/404.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/404.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/index.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/reference/igraph_to_networkD3.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/igraph_to_networkD3.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/JS.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/JS.html</loc>
   </url>
   <url>
-    <loc>/reference/sankeyD3-package.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3-package.html</loc>
   </url>
   <url>
-    <loc>/reference/sankeyD3-shiny.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3-shiny.html</loc>
   </url>
   <url>
-    <loc>/reference/sankeyNetwork.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyNetwork.html</loc>
   </url>
   <url>
-    <loc>/reference/saveNetwork.html</loc>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/saveNetwork.html</loc>
   </url>
 </urlset>

@@ -37,5 +37,5 @@ Suggests:
     jsonlite
 Enhances: knitr, shiny
 LazyData: true
-URL: https://github.com/SchmidtPaul/sankeyD3plus
+URL: https://github.com/SchmidtPaul/sankeyD3plus, https://schmidtpaul.github.io/sankeyD3plus/
 BugReports: https://github.com/SchmidtPaul/sankeyD3plus/issues
