@@ -1,11 +1,13 @@
 Type: Package
 Package: sankeyD3plus
 Title: D3 JavaScript Sankey Graphs from R
-Description: Creates 'D3' 'JavaScript' Sankey graphs from 'R'.
+Description: Creates 'D3' 'JavaScript' Sankey diagrams in R.
 Version: 0.1
 Date: 2023-07-28
 Authors@R: c(
+    person("Paul", "Schmidt", email = "paul.schmidt@biomath.de", role = c("aut", "cre")),
     person("Florian","Breitwieser", role = c("aut"), comment = "github.com/fbreitwieser/sankeyD3"),
+    person("Alexander", "Tarashansky", role = "ctb", comment = "github.com/atarashansky/sankeyD3/tree/master"),
     person("Christopher", "Gandrud", role = "aut"),
     person("J.J.", "Allaire", role = "aut"),
     person("Kenton", "Russell", role = "aut"),
@@ -17,9 +19,7 @@ Authors@R: c(
     person("Charles", "Sese", role = "ctb"),
     person("Peter", "Ellis", role = "ctb"),
     person("Jonathan", "Owen", role = "ctb"),
-    person("Jennifer","Rogers", role = "ctb"),
-    person("Alexander", "Tarashansky", role = "ctb", comment = "github.com/atarashansky/sankeyD3/tree/master"),
-    person("Paul", "Schmidt", email = "paul.schmidt@biomath.de", role = c("aut", "cre"))
+    person("Jennifer","Rogers", role = "ctb")
     )
 License: GPL (>= 3)
 Encoding: UTF-8
