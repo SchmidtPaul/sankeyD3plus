@@ -193,3 +193,13 @@ tbl_df_strip <- function(x) {
     }
     return(x)
 }
+
+#' make note disappear: All declared Imports should be used
+#' @keywords internal
+#' @noRd
+.onLoad <- function(libname, pkgname) {
+  sankeyD3::JS()
+  tibble::tibble(a=1)
+  invisible(NULL)
+}
+

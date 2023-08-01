@@ -2,22 +2,38 @@
 % Please edit documentation in R/saveNetwork.R
 \name{saveNetwork}
 \alias{saveNetwork}
-\title{Save a Sankey network graph to an HTML file}
+\title{Save a Sankey diagram to an HTML or PNG file}
 \usage{
-saveNetwork(network, file, selfcontained = TRUE)
+saveNetwork(
+  network,
+  file,
+  selfcontained = TRUE,
+  vwidth = network$width,
+  vheight = network$height,
+  zoom = 5,
+  delay = 1
+)
 }
 \arguments{
-\item{network}{Network to save (e.g. result of calling the function
-\code{simpleNetwork}).}
+\item{network}{Network to save, i.e. result of \code{sankeyNetwork()}.}
 
-\item{file}{File to save HTML into}
+\item{file}{file to be saved - either html or png.}
 
 \item{selfcontained}{Whether to save the HTML as a single self-contained file
 (with external resources base64 encoded) or a file with external resources
 placed in an adjacent directory.}
+
+\item{vwidth}{Viewport width in pixels. Defaults to network$width.}
+
+\item{vheight}{Viewport height in pixels. Defaults to network$height.}
+
+\item{zoom}{Zoom factor. 1 means actual size, 2 means 50\% zoom, etc.}
+
+\item{delay}{Time to delay before taking webshot, in seconds.}
 }
 \description{
-Save a sankeyD3 graph to an HTML file for sharing with others. The HTML can
-include it's dependencies in an adjacent directory or can bundle all
-dependencies into the HTML file (via base64 encoding).
+Save a Sankey diagram created via \code{sankeyNetwork()} to an HTML or PNG
+file. The HTML can include its dependencies in an adjacent directory or can
+bundle all dependencies into the HTML file (via base64 encoding). PNG files
+are converted from HTML using the webshot package.
 }

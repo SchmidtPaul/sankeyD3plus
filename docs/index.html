@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="D3 JavaScript Sankey Graphs from R">
-<meta property="og:description" content="Creates D3 JavaScript Sankey graphs from R.">
+<meta property="og:description" content="Creates D3 JavaScript Sankey diagrams in R.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -46,6 +46,9 @@
   </a>
 </li>
 <li>
+  <a href="vignettes/Examples.html">Examples</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
       </ul>
@@ -71,7 +74,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="sankeyd3plus">sankeyD3plus<a class="anchor" aria-label="anchor" href="#sankeyd3plus"></a>
 </h1></div>
-<p>The R package {sankeyD3plus} lets you create ‘D3’ ‘JavaScript’ <a href="https://en.wikipedia.org/wiki/Sankey%20diagram" class="external-link">Sankey diagrams</a> from ‘R’.</p>
+<p>The R package {sankeyD3plus} lets you create <a href="https://d3js.org/" class="external-link">‘D3’ ‘JavaScript’</a> <a href="https://en.wikipedia.org/wiki/Sankey%20diagram" class="external-link">Sankey diagrams</a> in R.</p>
 <p>This package is very much an extended copy of <a href="https://github.com/fbreitwieser/sankeyD3/pull/21" class="external-link">this fork</a> from <a href="https://github.com/fbreitwieser/sankeyD3" class="external-link">{sankeyD3}</a>, which in turn is based on <a href="https://github.com/christophergandrud/networkD3" class="external-link">{networkD3}</a> and <a href="https://github.com/d3/d3-sankey" class="external-link">d3-sankey</a>. I decided to create this package because (1) {sankeyD3} has not been maintained for years and the author does not seem to respond, (2) the mentioned fork added a significant improvement and (3) I wanted to add helper functions and more examples in the documentation.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -111,12 +114,12 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
+<li>Paul Schmidt <br><small class="roles"> Author, maintainer </small>  </li>
 <li>Florian Breitwieser <br><small class="roles"> Author </small>  </li>
 <li>Christopher Gandrud <br><small class="roles"> Author </small>  </li>
 <li>J.J. Allaire <br><small class="roles"> Author </small>  </li>
 <li>Kenton Russell <br><small class="roles"> Author </small>  </li>
 <li>Mike Bostock <br><small class="roles"> Author, copyright holder </small>  </li>
-<li>Paul Schmidt <br><small class="roles"> Author, maintainer </small>  </li>
 <li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
@@ -129,7 +132,7 @@
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Florian Breitwieser, Christopher Gandrud, J.J. Allaire, Kenton Russell, Mike Bostock, Paul Schmidt.</p>
+<p>Developed by Paul Schmidt, Florian Breitwieser, Christopher Gandrud, J.J. Allaire, Kenton Russell, Mike Bostock.</p>
 </div>
 
 <div class="pkgdown">

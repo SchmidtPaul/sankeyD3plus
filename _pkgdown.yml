@@ -8,12 +8,16 @@ navbar:
     left:
     - home
     - intro
+    - examples
     - reference
     right: github
   components:
     home:
       icon: fas fa-home fa-lg
       href: index.html
+    examples:
+      text: Examples
+      href: vignettes/Examples.html
     reference:
       text: Reference
       href: reference/index.html
@@ -25,13 +29,15 @@ reference:
 - title: main functions
   contents:
   - sankeyNetwork
+  - saveNetwork
 
 - title: other functions
   contents:
+  - get_d3_colourScale
+  - get_nodes_from_links
   - igraph_to_networkD3
   - JS
-  - sankeyD3-package
-  - sankeyD3
-  - sankeyNetworkOutput
   - renderSankeyNetwork
-  - saveNetwork
+  - sankeyD3
+  - sankeyD3-package
+  - sankeyNetworkOutput

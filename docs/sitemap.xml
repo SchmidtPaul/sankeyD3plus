@@ -4,6 +4,12 @@
     <loc>https://schmidtpaul.github.io/sankeyD3plus/404.html</loc>
   </url>
   <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/articles/Examples.html</loc>
+  </url>
+  <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/articles/index.html</loc>
+  </url>
+  <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/authors.html</loc>
   </url>
   <url>
@@ -11,6 +17,12 @@
   </url>
   <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/get_d3_colourScale.html</loc>
+  </url>
+  <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/get_nodes_from_links.html</loc>
   </url>
   <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/igraph_to_networkD3.html</loc>
@@ -26,6 +38,9 @@
   </url>
   <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3-shiny.html</loc>
+  </url>
+  <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3plus-package.html</loc>
   </url>
   <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyNetwork.html</loc>

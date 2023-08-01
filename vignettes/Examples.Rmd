@@ -1,0 +1,158 @@
+---
+title: "Examples"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Examples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(sankeyD3plus)
+library(tibble)
+```
+
+# Smallest Example
+
+The absolute minimum needed to create a Sankey diagram is a **links** data frame with one row per link and columns that define the **source** and **target** as 0-based integer values. By default, all links will be of width 1.
+
+```{r}
+links <- data.frame(
+  source = c(0, 0, 0, 1, 2),
+  target = c(1, 2, 3, 4, 4)
+)
+
+sankeyNetwork(
+  Links = links,
+  Source = "source",
+  Target = "target"
+)
+```
+
+# Labels and Values
+
+One may also provide 
+
+ - a **nodes** data frame to e.g. have proper labels for each node.
+ - **values** in the links data frame that define the width of each link.
+ - a **unit** within `sankeyNetwork()` which is only visible when hovering over a link or node in the resulting diagram.
+ 
+We will from now on create [tibbles](https://tibble.tidyverse.org/) via [`tribble()`](https://tibble.tidyverse.org/reference/tribble.html) instead of [`data.frames()`](https://rdrr.io/r/base/data.frame.html) for better readability.
+
+```{r}
+links <- tribble(
+  ~source, ~target, ~value,
+  0,       1,       3.7,
+  0,       2,       22.9,
+  0,       3,       57.7,
+  1,       4,       3.7,
+  2,       4,       22.9
+)
+
+nodes <- tribble(
+  ~id, ~label,
+  0,   "German residents",
+  1,   "Berlin Residents",
+  2,   "Other cities (>100k)",
+  3,   "Non-Metropolitans",
+  4,   "Metropolitans (>100k)"
+)
+
+sankeyNetwork(
+  Links = links,
+  Source = "source",
+  Target = "target",
+  Value = "value",
+  units = "mio. people",
+  Nodes = nodes,
+  NodeID = "label"
+)
+```
+
+# Link color & Node color
+
+You can have link-specific and node-specific colors:
+
+```{r}
+links <- tribble(
+  ~source, ~target, ~value, ~linkcolor,
+  0,       1,       3.7,    "#e56b6f",
+  0,       2,       22.9,   "#e56b6f",
+  0,       3,       57.7,   "#355070",
+  1,       4,       3.7,    "#e56b6f",
+  2,       4,       22.9,   "#e56b6f"
+)
+
+nodes <- tribble(
+  ~id, ~label,                  ~nodecolor,
+  0,   "German residents",      "#6d597a",
+  1,   "Berlin Residents",      "#eaac8b",
+  2,   "Other cities (>100k)",  "#b56576",
+  3,   "Non-Metropolitans",     "#355070",
+  4,   "Metropolitans (>100k)", "#e56b6f"
+)
+
+sankeyNetwork(
+  Links = links,
+  Source = "source",
+  Target = "target",
+  Value = "value",
+  linkColor = "linkcolor",
+  Nodes = nodes,
+  NodeID = "label",
+  NodeColor = "nodecolor",
+  units = "mio. people",
+)
+```
+
+# Node Positioning
+
+You can enforce the vertical order of nodes via `NodePosY` and their horizontal position via `NodePosX`:
+
+```{r}
+links <- tribble(
+  ~source, ~target, ~value,
+  0,       1,       3.7,
+  0,       2,       22.9,
+  0,       3,       57.7,
+  1,       4,       3.7,
+  2,       4,       22.9
+)
+
+nodes <- tribble(
+  ~id, ~label,                  ~yorder, ~xpos,
+  0,   "German residents",      1,       0,
+  1,   "Berlin Residents",      1,       1,
+  2,   "Other cities (>100k)",  3,       1,
+  3,   "Non-Metropolitans",     2,       2,
+  4,   "Metropolitans (>100k)", 1,       2     
+)
+
+sankeyNetwork(
+  Links = links,
+  Source = "source",
+  Target = "target",
+  Value = "value",
+  units = "mio. people",
+  Nodes = nodes,
+  NodeID = "label",
+  NodePosY = "yorder"
+)
+sankeyNetwork(
+  Links = links,
+  Source = "source",
+  Target = "target",
+  Value = "value",
+  units = "mio. people",
+  Nodes = nodes,
+  NodeID = "label",
+  NodePosX = "xpos", # only works in combination with align = "none" or align = "left"
+)
+```

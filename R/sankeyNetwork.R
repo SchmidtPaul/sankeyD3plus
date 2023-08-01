@@ -32,12 +32,11 @@ NULL
 #'
 #' @param Links a data frame object with the links between the nodes. It should
 #' have include the \code{Source} and \code{Target} for each link. An optional
-#' \code{Value} variable can be included to specify how close the nodes are to
-#' one another.
+#' \code{Value} variable can be included to specify the size (default is 1).
 #' @param Nodes a data frame containing the node id and properties of the nodes.
 #' If no ID is specified then the nodes must be in the same order as the
 #' \code{Source} variable column in the \code{Links} data frame. Currently only
-#' grouping variable is allowed.
+#' one grouping variable is allowed.
 #' @param Source character string naming the network source variable in the
 #' \code{Links} data frame.
 #' @param Target character string naming the network target variable in the
@@ -116,8 +115,6 @@ NULL
 #' @param yOrderComparator Order nodes on the y axis by a custom function instead of ascending or
 #' descending depth.
 #'
-#' @seealso \code{\link{JS}}
-#'
 #' @export
 sankeyNetwork <- function(Links,
                           Nodes,
@@ -125,14 +122,15 @@ sankeyNetwork <- function(Links,
                           Target,
                           Value,
                           NodeID,
-                          NodeGroup = NodeID,
-                          LinkGroup = NULL,
+                          NodeGroup = NULL,
+                          NodeColor = NULL,
                           NodePosX = NULL,
                           NodePosY = NULL,
                           NodeValue = NULL,
-                          NodeColor = NULL,
                           NodeFontColor = NULL,
                           NodeFontSize = NULL,
+                          LinkGroup = NULL,
+                          linkColor = "#A0A0A0",
                           units = "",
                           colourScale = JS("d3.scaleOrdinal().range(d3.schemeCategory20)"),
                           fontSize = 12,
@@ -159,7 +157,6 @@ sankeyNetwork <- function(Links,
                           showNodeValues = TRUE,
                           linkType = "bezier",
                           curvature = .5,
-                          linkColor = "#A0A0A0",
                           nodeLabelMargin = 2,
                           linkOpacity = .5,
                           linkGradient = FALSE,
@@ -168,6 +165,11 @@ sankeyNetwork <- function(Links,
                           xScalingFactor = 1,
                           yOrderComparator = NULL)
 {
+
+    # default Nodes = get_nodes_from_links(Links)
+    if (missing(Nodes)) {
+      Nodes <- get_nodes_from_links(Links)
+    }
 
     # Check if data is zero indexed
     check_zero(Links[, Source], Links[, Target])
@@ -188,10 +190,8 @@ sankeyNetwork <- function(Links,
     }
     # if Source or Target are missing assume Source is the first
     # column Target is the second column
-    if (missing(Source))
-        Source = 1
-    if (missing(Target))
-        Target = 2
+    if (missing(Source)){Source = 1}
+    if (missing(Target)){Target = 2}
 
     LinksDF <- data.frame(source=Links[, Source], target = Links[, Target])
 
@@ -202,8 +202,7 @@ sankeyNetwork <- function(Links,
     }
 
     # if NodeID is missing assume NodeID is the first column
-    if (missing(NodeID))
-        NodeID = 1
+    if (missing(NodeID)){NodeID = 1}
     NodesDF <- data.frame(name=Nodes[, NodeID], stringsAsFactors = FALSE)
 
     # add node group if specified
@@ -242,6 +241,22 @@ sankeyNetwork <- function(Links,
         LinksDF$group <- Links[, LinkGroup]
     }
 
+    if (linkColor %in% colnames(Links)) {
+
+      LinkGroup <- linkColor
+
+      # Check if all color names are valid (either named colors or HEX colors)
+      colour_names <- unique(as.character(Links[, linkColor]))
+      if (all(colour_names %in% grDevices::colors() | grepl("^#[0-9A-Fa-f]{6}$", colour_names))) {
+        colourScale <- as.character(get_d3_colourScale(setNames(colour_names, colour_names)))
+        LinksDF$group <- Links[, LinkGroup]
+      } else {
+        stop(paste0("You wrote 'linkColor = ", linkColor,
+                    "' which is a column in your links. However, not all values in that column are valid color names or HEX color codes. ",
+                    "Maybe use 'LinkGroup = ", linkColor, "' instead?"))
+      }
+    }
+
     margin <- margin_handler(margin)
 
     # create options
@@ -269,16 +284,24 @@ sankeyNetwork <- function(Links,
 
 #' @keywords internal
 sankey_dep <- function() {
+  filePath <- system.file("htmlwidgets/lib/d3-sankey/src", package="sankeyD3")
+
+  if (!file.exists(filePath)) {
+    stop("File path not found: ", filePath)
+  }
+
   htmltools::htmlDependency(
     name = "sankey",
     version = "0.1",
     src = c(
-      file = system.file("htmlwidgets/lib/d3-sankey/src", package="sankeyD3")
+      file = filePath
     ),
-    script = "sankey.js"#,
-    #stylesheet = "d2b_custom.css"
+    script = "sankey.js"
   )
 }
+
+
+
 
 #' @rdname sankeyD3-shiny
 #' @export
