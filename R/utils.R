@@ -198,7 +198,6 @@ tbl_df_strip <- function(x) {
 #' @keywords internal
 #' @noRd
 .onLoad <- function(libname, pkgname) {
-  sankeyD3::JS()
   tibble::tibble(a=1)
   invisible(NULL)
 }

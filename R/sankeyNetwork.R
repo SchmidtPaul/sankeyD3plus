@@ -1,23 +1,13 @@
-#' Tools for Creating D3 Sankey Graphs from R
+#' Shiny bindings for sankeyD3plus widgets
 #'
-#' Creates D3 JavaScript Sankey graphs from R. Based on networkD3.
-#'
-#' @name sankeyD3-package
-#' @aliases sankeyD3
-#' @docType package
-NULL
-
-
-#' Shiny bindings for sankeyD3 widgets
-#'
-#' Output and render functions for using sankeyD3 widgets within Shiny
+#' Output and render functions for using sankeyD3plus widgets within Shiny
 #' applications and interactive Rmd documents.
 #'
 #' @param outputId output variable to read from
 #' @param width,height Must be a valid CSS unit (like \code{"100\%"},
 #'   \code{"400px"}, \code{"auto"}) or a number, which will be coerced to a
 #'   string and have \code{"px"} appended.
-#' @param expr An expression that generates a sankeyD3 graph
+#' @param expr An expression that generates a sankeyD3plus graph
 #' @param env The environment in which to evaluate \code{expr}.
 #' @param quoted Is \code{expr} a quoted expression (with \code{quote()})? This
 #'   is useful if you want to save an expression in a variable.
@@ -25,7 +15,7 @@ NULL
 #' @importFrom htmlwidgets shinyWidgetOutput
 #' @importFrom htmlwidgets shinyRenderWidget
 #'
-#' @name sankeyD3-shiny
+#' @name sankeyD3plus-shiny
 NULL
 
 #' Create a D3 JavaScript Sankey diagram
@@ -279,12 +269,12 @@ sankeyNetwork <- function(Links,
         nodes = NodesDF, options = options), width = width, height = height,
         sizingPolicy = htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
         dependencies = list(d3r::d3_dep_v4(), sankey_dep()),
-        package = "sankeyD3")
+        package = "sankeyD3plus")
 }
 
 #' @keywords internal
 sankey_dep <- function() {
-  filePath <- system.file("htmlwidgets/lib/d3-sankey/src", package="sankeyD3")
+  filePath <- system.file("htmlwidgets/lib/d3-sankey/src", package = "sankeyD3plus")
 
   if (!file.exists(filePath)) {
     stop("File path not found: ", filePath)
@@ -293,29 +283,27 @@ sankey_dep <- function() {
   htmltools::htmlDependency(
     name = "sankey",
     version = "0.1",
-    src = c(
-      file = filePath
-    ),
+    src = c(file = filePath),
     script = "sankey.js"
   )
 }
 
 
-
-
-#' @rdname sankeyD3-shiny
+#' @rdname sankeyD3plus-shiny
 #' @export
-sankeyNetworkOutput <- function(outputId, width = "100%", height = "500px") {
-    htmlwidgets::shinyWidgetOutput(outputId, "sankeyNetwork", width, height,
-        package = "sankeyD3")
-}
+sankeyNetworkOutput <-
+  function(outputId,
+           width = "100%",
+           height = "500px") {
+    htmlwidgets::shinyWidgetOutput(outputId, "sankeyNetwork", width, height, package = "sankeyD3plus")
+  }
 
-#' @rdname sankeyD3-shiny
+#' @rdname sankeyD3plus-shiny
 #' @export
-renderSankeyNetwork <- function(expr, env = parent.frame(), quoted = FALSE) {
-    if (!quoted)
-        {
-            expr <- substitute(expr)
-        }  # force quoted
-  htmlwidgets::shinyRenderWidget(expr, sankeyNetworkOutput, env, quoted = TRUE)
-}
+renderSankeyNetwork <-
+  function(expr,
+           env = parent.frame(),
+           quoted = FALSE) {
+    if (!quoted) {expr <- substitute(expr)}
+    htmlwidgets::shinyRenderWidget(expr, sankeyNetworkOutput, env, quoted = TRUE)
+  }

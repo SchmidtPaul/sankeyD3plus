@@ -1,0 +1,5 @@
+#dependencies:
+#  - name: sankey
+#    version: 1.0
+#    src: "htmlwidgets/lib/d3-sankey/src"
+#    script: sankey.js

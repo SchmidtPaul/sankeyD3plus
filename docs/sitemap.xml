@@ -34,13 +34,10 @@
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/JS.html</loc>
   </url>
   <url>
-    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3-package.html</loc>
-  </url>
-  <url>
-    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3-shiny.html</loc>
-  </url>
-  <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3plus-package.html</loc>
+  </url>
+  <url>
+    <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyD3plus-shiny.html</loc>
   </url>
   <url>
     <loc>https://schmidtpaul.github.io/sankeyD3plus/reference/sankeyNetwork.html</loc>

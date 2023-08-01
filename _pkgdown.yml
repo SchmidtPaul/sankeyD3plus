@@ -38,6 +38,4 @@ reference:
   - igraph_to_networkD3
   - JS
   - renderSankeyNetwork
-  - sankeyD3
-  - sankeyD3-package
   - sankeyNetworkOutput

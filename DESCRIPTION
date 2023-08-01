@@ -31,7 +31,6 @@ Imports:
     htmltools,
     htmlwidgets (>= 0.3.2),
     magrittr,
-    sankeyD3,
     stats,
     tibble
 Suggests:
