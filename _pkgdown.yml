@@ -17,7 +17,7 @@ navbar:
       href: index.html
     examples:
       text: Examples
-      href: vignettes/Examples.html
+      href: articles/Examples.html
     reference:
       text: Reference
       href: reference/index.html

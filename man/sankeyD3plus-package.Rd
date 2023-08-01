@@ -4,7 +4,7 @@
 \name{sankeyD3plus-package}
 \alias{sankeyD3plus}
 \alias{sankeyD3plus-package}
-\title{sankeyD3plus: D3 JavaScript Sankey Graphs from R}
+\title{sankeyD3plus: D3 JavaScript Sankey diagrams in R}
 \description{
 Creates 'D3' 'JavaScript' Sankey diagrams in R.
 }
