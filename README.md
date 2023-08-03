@@ -1,7 +1,7 @@
 
 # sankeyD3plus
 
-The R package {sankeyD3plus} lets you create ['D3' 'JavaScript'](https://d3js.org/) [Sankey diagrams](https://en.wikipedia.org/wiki/Sankey%20diagram) in R. 
+The R package **{sankeyD3plus}** lets you create ['D3' 'JavaScript'](https://d3js.org/) [Sankey diagrams](https://en.wikipedia.org/wiki/Sankey%20diagram) in R. 
 
 This package is heavily based on [this fork](https://github.com/fbreitwieser/sankeyD3/pull/21) from [{sankeyD3}](https://github.com/fbreitwieser/sankeyD3), which in turn is based on [{networkD3}](https://github.com/christophergandrud/networkD3) and [d3-sankey](https://github.com/d3/d3-sankey). I decided to create {sankeyD3plus} because 
 
