@@ -1,4 +1,13 @@
 .Rproj.user
+.Rproj.user/
 .Rhistory
+.Rapp.history
 .RData
 .Ruserdata
+/*.tar.gz
+/*.Rcheck/
+.Renviron
+*.utf8.md
+*.knit.md
+*_cache/
+/cache/
