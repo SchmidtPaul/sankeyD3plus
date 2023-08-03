@@ -26,7 +26,7 @@ sankeyNetwork(
   fontFamily = "Arial",
   fontColor = NULL,
   nodeWidth = 15,
-  nodePadding = 12,
+  nodePadding = NULL,
   nodeStrokeWidth = 1,
   nodeCornerRadius = 0,
   margin = NULL,
@@ -37,7 +37,7 @@ sankeyNetwork(
   doubleclickTogglesChildren = FALSE,
   xAxisDomain = NULL,
   dragX = FALSE,
-  dragY = FALSE,
+  dragY = TRUE,
   height = 500,
   width = 800,
   iterations = 32,
@@ -119,7 +119,7 @@ scale for the nodes. See
 
 \item{nodeWidth}{numeric width of each node.}
 
-\item{nodePadding}{numeric essentially influences the width height. Default is 12.}
+\item{nodePadding}{numeric essentially influences the width height. By default, it's the same as the fontSize parameter.}
 
 \item{nodeStrokeWidth}{numeric width of the stroke around nodes.}
 
@@ -148,9 +148,9 @@ on double-click. Does not hide incoming links of target nodes, yet.}
 \item{xAxisDomain}{character[] If xAxisDomain is given, an axis with those value is
 added to the bottom of the plot. Only sensible when also NodeXPos are given.}
 
-\item{dragX}{boolean Allow moving nodes along the x-axis?}
+\item{dragX}{boolean Allow moving nodes along the x-axis? Default is FALSE.}
 
-\item{dragY}{boolean Allow moving nodes along the y-axis?}
+\item{dragY}{boolean Allow moving nodes along the y-axis? Default is TRUE.}
 
 \item{height}{numeric height for the network graph's frame area in pixels. Default is 500.}
 

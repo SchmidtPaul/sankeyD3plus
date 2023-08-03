@@ -76,7 +76,7 @@ sankeyNetwork(
 )
 ```
 
-# Link color & Node color
+# Link Color & Node Color
 
 You can have link-specific and node-specific colors:
 
@@ -112,9 +112,9 @@ sankeyNetwork(
 )
 ```
 
-# Node Positioning
+# Vertical Node Positioning
 
-You can enforce the vertical order of nodes via `NodePosY` and their horizontal position via `NodePosX`:
+You can enforce the vertical order of nodes via `NodePosY`.
 
 ```{r}
 links <- tribble(
@@ -127,12 +127,12 @@ links <- tribble(
 )
 
 nodes <- tribble(
-  ~id, ~label,                  ~yorder, ~xpos,
-  0,   "German residents",      1,       0,
-  1,   "Berlin Residents",      1,       1,
-  2,   "Other cities (>100k)",  3,       1,
-  3,   "Non-Metropolitans",     2,       2,
-  4,   "Metropolitans (>100k)", 1,       2     
+  ~id, ~label,                  ~yorder,
+  0,   "German residents",      1,      
+  1,   "Berlin Residents",      1,      
+  2,   "Other cities (>100k)",  3,       
+  3,   "Non-Metropolitans",     2,      
+  4,   "Metropolitans (>100k)", 1    
 )
 
 sankeyNetwork(
@@ -145,6 +145,31 @@ sankeyNetwork(
   NodeID = "label",
   NodePosY = "yorder"
 )
+```
+
+# Horizontal Node Positioning
+
+You can enforce a node's horizontal position via `NodePosX` and label the x-Axis via `xAxisDomain`. However, as pointed out in [this issue](https://github.com/SchmidtPaul/sankeyD3plus/issues/3), changing `fontSize` unfortunately does not affect `xAxisDomain`.
+
+```{r}
+links <- tribble(
+  ~source, ~target, ~value,
+  0,       1,       3.7,
+  0,       2,       22.9,
+  0,       3,       57.7,
+  1,       4,       3.7,
+  2,       4,       22.9
+)
+
+nodes <- tribble(
+  ~id, ~label,                  ~xpos,
+  0,   "German residents",      0,
+  1,   "Berlin Residents",      1,
+  2,   "Other cities (>100k)",  1,
+  3,   "Non-Metropolitans",     2,
+  4,   "Metropolitans (>100k)", 2     
+)
+
 sankeyNetwork(
   Links = links,
   Source = "source",
@@ -153,6 +178,8 @@ sankeyNetwork(
   units = "mio. people",
   Nodes = nodes,
   NodeID = "label",
-  NodePosX = "xpos", # only works in combination with align = "none" or align = "left"
+  NodePosX = "xpos",
+  xAxisDomain = c("Germany", "Berlin vs. other cities", "City vs. rural")
 )
 ```
+

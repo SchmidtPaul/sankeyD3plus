@@ -61,7 +61,7 @@ NULL
 #' @param fontFamily font family for the node text labels. Default is 'Arial'.
 #' @param fontColor font color for the node text labels.
 #' @param nodeWidth numeric width of each node.
-#' @param nodePadding numeric essentially influences the width height. Default is 12.
+#' @param nodePadding numeric essentially influences the width height. By default, it's the same as the fontSize parameter.
 #' @param nodeStrokeWidth numeric width of the stroke around nodes.
 #' @param nodeCornerRadius numeric Radius for rounded nodes.
 #' @param numberFormat number format in tooltips - see https://github.com/d3/d3-format for options. Default is ',.1f'.
@@ -85,8 +85,8 @@ NULL
 #' @param linkColor numeric Color of links.
 #' @param linkOpacity numeric Opacity of links.
 #' @param linkGradient boolean Add a gradient to the links?
-#' @param dragX boolean Allow moving nodes along the x-axis?
-#' @param dragY boolean Allow moving nodes along the y-axis?
+#' @param dragX boolean Allow moving nodes along the x-axis? Default is FALSE.
+#' @param dragY boolean Allow moving nodes along the y-axis? Default is TRUE.
 #' @param nodeShadow boolean Add a shadow to the nodes?
 #' @param xScalingFactor numeric Scale the computed x position of the nodes by this value.
 #' @param xAxisDomain character[] If xAxisDomain is given, an axis with those value is
@@ -127,7 +127,7 @@ sankeyNetwork <- function(Links,
                           fontFamily = "Arial",
                           fontColor = NULL,
                           nodeWidth = 15,
-                          nodePadding = 12,
+                          nodePadding = NULL,
                           nodeStrokeWidth = 1,
                           nodeCornerRadius = 0,
                           margin = NULL,
@@ -138,7 +138,7 @@ sankeyNetwork <- function(Links,
                           doubleclickTogglesChildren = FALSE,
                           xAxisDomain = NULL,
                           dragX = FALSE,
-                          dragY = FALSE,
+                          dragY = TRUE,
                           height = 500,
                           width = 800,
                           iterations = 32,
@@ -166,6 +166,11 @@ sankeyNetwork <- function(Links,
 
     # Hack for UI consistency. Think of improving.
     colourScale <- as.character(colourScale)
+
+    # Change nodePadding to fontSize if it is NULL
+    if (is.null(nodePadding)) {
+      nodePadding <- fontSize
+    }
 
     # If tbl_df convert to plain data.frame
     Links <- tbl_df_strip(Links)
