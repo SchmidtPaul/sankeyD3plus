@@ -20,4 +20,4 @@ remotes::install_github('SchmidtPaul/sankeyD3plus')
 
 ## Examples
 
-Check out the [Examples page](articles/Examples.html)!
+Check out the [Examples page](https://schmidtpaul.github.io/sankeyD3plus/articles/Examples.html)!
