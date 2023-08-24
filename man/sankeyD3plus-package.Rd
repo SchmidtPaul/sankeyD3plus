@@ -6,6 +6,8 @@
 \alias{sankeyD3plus-package}
 \title{sankeyD3plus: D3 JavaScript Sankey diagrams in R}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Creates 'D3' 'JavaScript' Sankey diagrams in R.
 }
 \seealso{

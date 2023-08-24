@@ -26,6 +26,7 @@ RoxygenNote: 7.2.3
 Depends:
     R (>= 3.0.0)
 Imports:
+    assertthat,
     d3r,
     grDevices,
     htmltools,
@@ -34,10 +35,12 @@ Imports:
     stats,
     tibble
 Suggests:
+    here,
     igraph,
     jsonlite,
     knitr,
     rmarkdown,
+    testthat (>= 3.0.0),
     webshot
 Enhances: 
     shiny
@@ -45,3 +48,4 @@ LazyData: true
 URL: https://github.com/SchmidtPaul/sankeyD3plus, https://schmidtpaul.github.io/sankeyD3plus/
 BugReports: https://github.com/SchmidtPaul/sankeyD3plus/issues
 VignetteBuilder: knitr
+Config/testthat/edition: 3

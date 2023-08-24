@@ -21,14 +21,16 @@ get_nodes_from_links <- function(Links,
 
     # Check if source column exists
     if (!(source %in% colnames(Links))) {
+      sourcenotfound <- source
       source <- colnames(Links)[1]
-      message(paste("The 'source' column was not found. Using the first column:", source))
+      message(paste("The source column '", sourcenotfound, "' was not found. Using the first column: ", source))
     }
 
     # Check if target column exists
     if (!(target %in% colnames(Links))) {
+      targetnotfound <- target
       target <- colnames(Links)[2]
-      message(paste("The 'target' column was not found. Using the second column:", target))
+      message(paste0("The target column '", targetnotfound, "' was not found. Using the second column: ", target))
     }
   }
 

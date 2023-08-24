@@ -6,34 +6,40 @@
 \usage{
 saveNetwork(
   network,
-  file,
-  selfcontained = TRUE,
+  folder_path = NULL,
+  file_name = "temp",
+  png = "create",
+  html = "none",
   vwidth = network$width,
   vheight = network$height,
   zoom = 5,
-  delay = 1
+  delay = 0.5,
+  selfcontained = TRUE
 )
 }
 \arguments{
 \item{network}{Network to save, i.e. result of \code{sankeyNetwork()}.}
 
-\item{file}{file to be saved - either html or png.}
+\item{folder_path}{Path to the destination folder.}
 
-\item{selfcontained}{Whether to save the HTML as a single self-contained file
-(with external resources base64 encoded) or a file with external resources
-placed in an adjacent directory.}
+\item{file_name}{File name without file extension.}
 
-\item{vwidth}{Viewport width in pixels. Defaults to network$width.}
+\item{png}{Should a png file be created and/or immediately opened? Can be either \code{"none"}, \code{"create"} or \code{"open"}.}
 
-\item{vheight}{Viewport height in pixels. Defaults to network$height.}
+\item{html}{Should an html file be created and/or immediately opened? Can be either \code{"none"}, \code{"create"} or \code{"open"}.}
 
-\item{zoom}{Zoom factor. 1 means actual size, 2 means 50\% zoom, etc.}
+\item{vwidth}{Passed to \code{webshot::webshot()}. Viewport width in pixels. Defaults to network$width, i.e. the width that was set in \code{sankeyNetwork()}.}
 
-\item{delay}{Time to delay before taking webshot, in seconds.}
+\item{vheight}{Passed to \code{webshot::webshot()}. Viewport height in pixels. Defaults to network$height, i.e. the height that was set in \code{sankeyNetwork()}.}
+
+\item{zoom}{Passed to \code{webshot::webshot()}. Zoom factor. 1 means actual size, 2 means 50\% zoom, etc.}
+
+\item{delay}{Passed to \code{webshot::webshot()}. Time to delay before taking webshot, in seconds.}
+
+\item{selfcontained}{Passed to \code{htmlwidgets::saveWidget()}. Whether to save the HTML as a single self-contained file (with external resources base64 encoded) or a file with external resources placed in an adjacent directory. TRUE by default, but note that this does not always seem to work.}
 }
 \description{
 Save a Sankey diagram created via \code{sankeyNetwork()} to an HTML or PNG
-file. The HTML can include its dependencies in an adjacent directory or can
-bundle all dependencies into the HTML file (via base64 encoding). PNG files
-are converted from HTML using the webshot package.
+file. HTML files are created via \code{htmlwidgets::saveWidget()}.
+PNG files are converted from HTML files via \code{webshot::webshot()}.
 }

@@ -78,7 +78,7 @@ sankeyNetwork(
 
 # Link Color & Node Color
 
-You can have link-specific and node-specific colors:
+You can have **link-specific colors** and **node-specific colors**:
 
 ```{r}
 links <- tribble(
@@ -114,7 +114,7 @@ sankeyNetwork(
 
 # Vertical Node Positioning
 
-You can enforce the vertical order of nodes via `NodePosY`.
+You can enforce the **vertical order of nodes** via `NodePosY`.
 
 ```{r}
 links <- tribble(
@@ -149,7 +149,7 @@ sankeyNetwork(
 
 # Horizontal Node Positioning
 
-You can enforce a node's horizontal position via `NodePosX` and label the x-Axis via `xAxisDomain`. However, as pointed out in [this issue](https://github.com/SchmidtPaul/sankeyD3plus/issues/3), changing `fontSize` unfortunately does not affect `xAxisDomain`.
+You can enforce a **node's horizontal position** via `NodePosX` and label the x-Axis via `xAxisDomain`. However, as pointed out in [this issue](https://github.com/SchmidtPaul/sankeyD3plus/issues/3), changing `fontSize` unfortunately does not affect `xAxisDomain`.
 
 ```{r}
 links <- tribble(

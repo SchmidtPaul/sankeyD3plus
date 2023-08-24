@@ -21,7 +21,7 @@ sankeyNetwork(
   LinkGroup = NULL,
   linkColor = "#A0A0A0",
   units = "",
-  colourScale = JS("d3.scaleOrdinal().range(d3.schemeCategory20)"),
+  colourScale = NULL,
   fontSize = 12,
   fontFamily = "Arial",
   fontColor = NULL,

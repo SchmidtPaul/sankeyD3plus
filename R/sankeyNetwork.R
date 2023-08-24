@@ -122,7 +122,7 @@ sankeyNetwork <- function(Links,
                           LinkGroup = NULL,
                           linkColor = "#A0A0A0",
                           units = "",
-                          colourScale = JS("d3.scaleOrdinal().range(d3.schemeCategory20)"),
+                          colourScale = NULL,
                           fontSize = 12,
                           fontFamily = "Arial",
                           fontColor = NULL,
@@ -155,87 +155,34 @@ sankeyNetwork <- function(Links,
                           xScalingFactor = 1,
                           yOrderComparator = NULL)
 {
+    # Deal with Links ---------------------------------------------------------
+    # convert Links to data.frame
+    Links <- as.data.frame(Links)
+    assert_that(is.data.frame(Links), msg = "'as.data.frame(Links)' must be a data frame class object.")
 
-    # default Nodes = get_nodes_from_links(Links)
-    if (missing(Nodes)) {
-      Nodes <- get_nodes_from_links(Links)
-    }
+    # if Source or Target are missing assume...
+    # ...source is the first column
+    if (missing(Source)){Source = 1}
+    # ...target is the second column
+    if (missing(Target)){Target = 2}
 
     # Check if data is zero indexed
     check_zero(Links[, Source], Links[, Target])
 
-    # Hack for UI consistency. Think of improving.
-    colourScale <- as.character(colourScale)
-
-    # Change nodePadding to fontSize if it is NULL
-    if (is.null(nodePadding)) {
-      nodePadding <- fontSize
-    }
-
-    # If tbl_df convert to plain data.frame
-    Links <- tbl_df_strip(Links)
-    Nodes <- tbl_df_strip(Nodes)
-
-    # Subset data frames for network graph
-    if (!is.data.frame(Links)) {
-        stop("Links must be a data frame class object.")
-    }
-    if (!is.data.frame(Nodes)) {
-        stop("Nodes must be a data frame class object.")
-    }
-    # if Source or Target are missing assume Source is the first
-    # column Target is the second column
-    if (missing(Source)){Source = 1}
-    if (missing(Target)){Target = 2}
-
+    # constrcut LinksDF
     LinksDF <- data.frame(source=Links[, Source], target = Links[, Target])
 
+    # if missing, set values to 1
     if (missing(Value)) {
-        LinksDF$value = 1
+      LinksDF$value = 1
     } else {
-        LinksDF$value <- Links[, Value]
+      LinksDF$value <- Links[, Value]
     }
 
-    # if NodeID is missing assume NodeID is the first column
-    if (missing(NodeID)){NodeID = 1}
-    NodesDF <- data.frame(name=Nodes[, NodeID], stringsAsFactors = FALSE)
+    # default colourScale
+    colourScale <- as.character(JS("d3.scaleOrdinal().range(d3.schemeCategory20)"))
 
-    # add node group if specified
-    if (is.character(NodeGroup)) {
-        NodesDF$group <- Nodes[, NodeGroup]
-    }
-
-    if (is.character(NodePosY)) {
-        NodesDF$posY <- Nodes[, NodePosY]
-        orderByPosY <- TRUE
-    }else{
-        orderByPosY <- FALSE
-    }
-
-    if (is.character(NodePosX)) {
-        NodesDF$posX <- Nodes[, NodePosX]
-    }
-
-    if (is.character(NodeValue)) {
-        NodesDF$value <- Nodes[, NodeValue]
-    }
-
-    if (is.character(NodeColor)) {
-        NodesDF$color = Nodes[, NodeColor]
-    }
-
-    if (is.character(NodeFontSize)) {
-        NodesDF$fontSize = Nodes[, NodeFontSize]
-    }
-
-    if (is.character(NodeFontColor)) {
-        NodesDF$fontColor = Nodes[, NodeFontColor]
-    }
-
-    if (is.character(LinkGroup)) {
-        LinksDF$group <- Links[, LinkGroup]
-    }
-
+    # if linkColor is set to a column name in Links, use those color names
     if (linkColor %in% colnames(Links)) {
 
       LinkGroup <- linkColor
@@ -252,29 +199,124 @@ sankeyNetwork <- function(Links,
       }
     }
 
+
+    # Deal with Nodes ---------------------------------------------------------
+    # default Nodes = get_nodes_from_links(Links)
+    if (missing(Nodes)) {
+      Nodes <- get_nodes_from_links(
+        Links = Links,
+        source = Source,
+        target = Target
+      )
+    }
+
+    # convert Nodes to data.frame
+    Nodes <- as.data.frame(Nodes)
+    assert_that(is.data.frame(Nodes), msg = "'as.data.frame(Nodes)' must be a data frame class object.")
+
+    # if NodeID is missing assume NodeID is the first column
+    if (missing(NodeID)) {
+      NodeID = 1
+    }
+    NodesDF <- data.frame(name=Nodes[, NodeID], stringsAsFactors = FALSE)
+
+    # add node group if specified
+    if (is.character(NodeGroup)) {
+      NodesDF$group <- Nodes[, NodeGroup]
+    }
+
+    if (is.character(NodePosY)) {
+      NodesDF$posY <- Nodes[, NodePosY]
+      orderByPosY <- TRUE
+    } else{
+      orderByPosY <- FALSE
+    }
+
+    if (is.character(NodePosX)) {
+      NodesDF$posX <- Nodes[, NodePosX]
+    }
+
+    if (is.character(NodeValue)) {
+      NodesDF$value <- Nodes[, NodeValue]
+    }
+
+    if (is.character(NodeColor)) {
+      NodesDF$color = Nodes[, NodeColor]
+    }
+
+    if (is.character(NodeFontSize)) {
+      NodesDF$fontSize = Nodes[, NodeFontSize]
+    }
+
+    if (is.character(NodeFontColor)) {
+      NodesDF$fontColor = Nodes[, NodeFontColor]
+    }
+
+    if (is.character(LinkGroup)) {
+      LinksDF$group <- Links[, LinkGroup]
+    }
+
+    # Change nodePadding to fontSize if it is NULL
+    if (is.null(nodePadding)) {
+      nodePadding <- fontSize
+    }
+
     margin <- margin_handler(margin)
 
     # create options
-    options = list(NodeID = NodeID, NodeGroup = NodeGroup, LinkGroup = LinkGroup, orderByPosY = orderByPosY,
-        colourScale = colourScale, fontSize = fontSize, fontFamily = fontFamily, fontColor = fontColor,
-        nodeWidth = nodeWidth, nodePadding = nodePadding, nodeStrokeWidth = nodeStrokeWidth,
-        nodeCornerRadius = nodeCornerRadius, dragX = dragX, dragY = dragY,
-        numberFormat = numberFormat, orderByPath = orderByPath,
-        units = units, margin = margin, iterations = iterations,
-        zoom = zoom, linkType = linkType, curvature = curvature,
-        highlightChildLinks = highlightChildLinks, doubleclickTogglesChildren = doubleclickTogglesChildren,
-        showNodeValues = showNodeValues, align = align, xAxisDomain = xAxisDomain,
-        title = title, nodeLabelMargin = nodeLabelMargin,
-        linkColor = linkColor, linkOpacity = linkOpacity, linkGradient = linkGradient, nodeShadow = nodeShadow,
-        scaleNodeBreadthsByString = scaleNodeBreadthsByString, xScalingFactor = xScalingFactor,
-        yOrderComparator = yOrderComparator)
+    options = list(
+      NodeID = NodeID,
+      NodeGroup = NodeGroup,
+      LinkGroup = LinkGroup,
+      orderByPosY = orderByPosY,
+      colourScale = colourScale,
+      fontSize = fontSize,
+      fontFamily = fontFamily,
+      fontColor = fontColor,
+      nodeWidth = nodeWidth,
+      nodePadding = nodePadding,
+      nodeStrokeWidth = nodeStrokeWidth,
+      nodeCornerRadius = nodeCornerRadius,
+      dragX = dragX,
+      dragY = dragY,
+      numberFormat = numberFormat,
+      orderByPath = orderByPath,
+      units = units,
+      margin = margin,
+      iterations = iterations,
+      zoom = zoom,
+      linkType = linkType,
+      curvature = curvature,
+      highlightChildLinks = highlightChildLinks,
+      doubleclickTogglesChildren = doubleclickTogglesChildren,
+      showNodeValues = showNodeValues,
+      align = align,
+      xAxisDomain = xAxisDomain,
+      title = title,
+      nodeLabelMargin = nodeLabelMargin,
+      linkColor = linkColor,
+      linkOpacity = linkOpacity,
+      linkGradient = linkGradient,
+      nodeShadow = nodeShadow,
+      scaleNodeBreadthsByString = scaleNodeBreadthsByString,
+      xScalingFactor = xScalingFactor,
+      yOrderComparator = yOrderComparator
+    )
 
     # create widget
-    htmlwidgets::createWidget(name = "sankeyNetwork", x = list(links = LinksDF,
-        nodes = NodesDF, options = options), width = width, height = height,
-        sizingPolicy = htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
-        dependencies = list(d3r::d3_dep_v4(), sankey_dep()),
-        package = "sankeyD3plus")
+    htmlwidgets::createWidget(
+      name = "sankeyNetwork",
+      x = list(
+        links = LinksDF,
+        nodes = NodesDF,
+        options = options
+      ),
+      width = width,
+      height = height,
+      sizingPolicy = htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
+      dependencies = list(d3r::d3_dep_v4(), sankey_dep()),
+      package = "sankeyD3plus"
+    )
 }
 
 #' @keywords internal

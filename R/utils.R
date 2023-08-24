@@ -21,44 +21,44 @@ JS <- function (...)
 
 
 
-#' Internal function from Wei Luo to convert a data frame to a JSON array
-#'
-#' @param dtf a data frame object.
-#' @source Function from:
-#' \url{http://theweiluo.wordpress.com/2011/09/30/r-to-json-for-d3-js-and-protovis/}
-#' @keywords internal
-#' @noRd
-toJSONarray <- function(dtf){
-  clnms <- colnames(dtf)
+# Internal function from Wei Luo to convert a data frame to a JSON array
+#
+# @param dtf a data frame object.
+# @source Function from:
+# \url{http://theweiluo.wordpress.com/2011/09/30/r-to-json-for-d3-js-and-protovis/}
+# @keywords internal
+# @noRd
+# toJSONarray <- function(dtf){
+#   clnms <- colnames(dtf)
+#
+#   name.value <- function(i){
+#     quote <- '';
+#     if(!is.numeric(dtf[, i]) && !is.integer(dtf[, i])){ ### used to be: if(class(dtf[, i])!='numeric' && class(dtf[, i])!='integer'){
+#       quote <- '"';
+#     }
+#     paste('"', i, '" : ', quote, dtf[,i], quote, sep='')
+#   }
+#   objs <- apply(sapply(clnms, name.value), 1, function(x){paste(x,
+#                                                           collapse=', ')})
+#   objs <- paste('{', objs, '}')
+#
+#   res <- paste('[', paste(objs, collapse=', '), ']')
+#
+#   return(res)
+# }
 
-  name.value <- function(i){
-    quote <- '';
-    if(!is.numeric(dtf[, i]) && !is.integer(dtf[, i])){ ### used to be: if(class(dtf[, i])!='numeric' && class(dtf[, i])!='integer'){
-      quote <- '"';
-    }
-    paste('"', i, '" : ', quote, dtf[,i], quote, sep='')
-  }
-  objs <- apply(sapply(clnms, name.value), 1, function(x){paste(x,
-                                                          collapse=', ')})
-  objs <- paste('{', objs, '}')
 
-  res <- paste('[', paste(objs, collapse=', '), ']')
-
-  return(res)
-}
-
-
-#' Read a text file into a single string
-#'
-#' @source Code taken directly from Ramnath Vaidyanathan's Slidify
-#' \url{https://github.com/ramnathv/slidify}.
-#' @param doc path to text document
-#' @return string with document contents
-#' @keywords internal
-#' @noRd
-read_file <- function(doc, ...){
-  paste(readLines(doc, ...), collapse = '\n')
-}
+# Read a text file into a single string
+#
+# @source Code taken directly from Ramnath Vaidyanathan's Slidify
+# \url{https://github.com/ramnathv/slidify}.
+# @param doc path to text document
+# @return string with document contents
+# @keywords internal
+# @noRd
+# read_file <- function(doc, ...){
+#   paste(readLines(doc, ...), collapse = '\n')
+# }
 
 
 #' Utility function to handle margins
@@ -183,18 +183,8 @@ check_zero <- function(Source, Target) {
     }
 }
 
-#' Convert dplyr created tbl_df to plain data.frame
-#' @noRd
-
-tbl_df_strip <- function(x) {
-    if(inherits(x, 'tbl_df')) { ### used to be: if('tbl_df' %in% class(x)) {
-        # message(paste(deparse(substitute(x)), 'is a tbl_df. Converting to a plain data frame.')) ### message muted
-        x <- base::as.data.frame(x)
-    }
-    return(x)
-}
-
 #' make note disappear: All declared Imports should be used
+#' reason for note: tibble is only used in vignette
 #' @keywords internal
 #' @noRd
 .onLoad <- function(libname, pkgname) {

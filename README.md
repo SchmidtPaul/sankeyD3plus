@@ -1,5 +1,5 @@
 
-# sankeyD3plus
+# sankeyD3plus <img src="man/figures/logo.png" align="right" height="138" />
 
 The R package **{sankeyD3plus}** lets you create ['D3' 'JavaScript'](https://d3js.org/) [Sankey diagrams](https://en.wikipedia.org/wiki/Sankey%20diagram) in R. 
 
