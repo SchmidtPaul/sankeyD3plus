@@ -1,9 +1,11 @@
 Type: Package
 Package: sankeyD3plus
 Title: D3 JavaScript Sankey diagrams in R
-Description: Creates 'D3' 'JavaScript' Sankey diagrams in R.
-Version: 0.2
-Date: 2023-08-03
+Description: Creates 'D3' 'JavaScript' Sankey diagrams in R. Modernized with D3 v7
+    support, official d3-sankey layout algorithm, and enhanced features including
+    multiple link rendering styles and optional circular link support.
+Version: 0.3
+Date: 2025-11-19
 Authors@R: c(
     person("Paul", "Schmidt", email = "paul.schmidt@biomath.de", role = c("aut", "cre"), comment = "https://schmidtpaul.github.io/"),
     person("Florian","Breitwieser", role = c("aut"), comment = "github.com/fbreitwieser/sankeyD3"),

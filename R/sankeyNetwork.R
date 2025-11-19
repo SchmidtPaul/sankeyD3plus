@@ -180,7 +180,10 @@ sankeyNetwork <- function(Links,
     }
 
     # default colourScale
-    colourScale <- as.character(JS("d3.scaleOrdinal().range(d3.schemeCategory20)"))
+    # Note: d3.schemeCategory20 was removed in D3 v5, using custom 20-color palette
+    # Based on the original Category20 colors for backward compatibility
+    category20_colors <- '["#1f77b4","#aec7e8","#ff7f0e","#ffbb78","#2ca02c","#98df8a","#d62728","#ff9896","#9467bd","#c5b0d5","#8c564b","#c49c94","#e377c2","#f7b6d2","#7f7f7f","#c7c7c7","#bcbd22","#dbdb8d","#17becf","#9edae5"]'
+    colourScale <- as.character(JS(paste0("d3.scaleOrdinal().range(", category20_colors, ")")))
 
     # if linkColor is set to a column name in Links, use those color names
     if (linkColor %in% colnames(Links)) {
@@ -314,7 +317,7 @@ sankeyNetwork <- function(Links,
       width = width,
       height = height,
       sizingPolicy = htmlwidgets::sizingPolicy(padding = 10, browser.fill = TRUE),
-      dependencies = list(d3r::d3_dep_v4(), sankey_dep()),
+      dependencies = list(d3_dep(), sankey_dep()),
       package = "sankeyD3plus"
     )
 }

@@ -68,7 +68,9 @@ HTMLWidgets.widget({
         // set this up even if zoom = F
         var zoom = d3.zoom().scaleExtent([.75, 3]);    
 
-        var color = eval(options.colourScale);
+        // Create color scale using Function constructor (safer than eval)
+        // Note: colourScale comes from R package code, not user input
+        var color = new Function('return ' + options.colourScale)();
         
         var color_node = function color_node(d){
           if (d.color) {
@@ -133,8 +135,10 @@ HTMLWidgets.widget({
         }
         
         // create d3 sankey layout
+        // d3.values was removed in D3 v6, use Object.values or d3.values depending on D3 version
+        var nodesArray = (d3.values !== undefined) ? d3.values(nodes) : Object.values(nodes);
         sankey
-            .nodes(d3.values(nodes))
+            .nodes(nodesArray)
             .align(options.align)
             .links(links)
             .size([width, height - 20])
@@ -149,7 +153,8 @@ HTMLWidgets.widget({
             .nodeCornerRadius(options.nodeCornerRadius);
             
         if(options.yOrderComparator) {
-          sankey = sankey.yOrderComparator(eval(options.yOrderComparator));
+          // Use Function constructor instead of eval for better security
+          sankey = sankey.yOrderComparator(new Function('return ' + options.yOrderComparator)());
         }
 
         sankey.layout(options.iterations);

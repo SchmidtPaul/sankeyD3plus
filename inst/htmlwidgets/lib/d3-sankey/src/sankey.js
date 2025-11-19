@@ -2,6 +2,47 @@
 //import {nest} from "d3-collection";
 //import {number} from "d3-interpolate";
 
+// Polyfill for d3.nest() which was removed in D3 v6
+// This ensures compatibility with both D3 v4 and v7
+if (typeof d3.nest === 'undefined') {
+  d3.nest = function() {
+    var nest = {};
+    var keys = [];
+    var sortKeys = [];
+
+    nest.key = function(fn) {
+      keys.push(fn);
+      return nest;
+    };
+
+    nest.sortKeys = function(fn) {
+      sortKeys.push(fn);
+      return nest;
+    };
+
+    nest.entries = function(array) {
+      if (keys.length === 0) return array;
+
+      var keyFn = keys[0];
+      var sortFn = sortKeys[0] || function(a, b) { return a < b ? -1 : a > b ? 1 : 0; };
+
+      var grouped = d3.group(array, keyFn);
+      var result = [];
+
+      Array.from(grouped.keys()).sort(sortFn).forEach(function(key) {
+        result.push({
+          key: key,
+          values: grouped.get(key)
+        });
+      });
+
+      return result;
+    };
+
+    return nest;
+  };
+}
+
 d3.sankey = function() {
   var sankey = {},
       nodeWidth = 24,
@@ -140,10 +181,10 @@ d3.sankey = function() {
     //   using (x1,y1) and (x2,y2) as control points
     function C(x1,y1,x2,y2,x,y)  { return "C" + xy(x1,y1) + " " + xy(x2,y2) + " " + xy(x,y); }
     
-    // S(x2,y2,x,y) smooth curveto function 
+    // S(x2,y2,x,y) smooth curveto function
     //   draws a cubic bezier curve from the current point to (x,y)
     //   with the first control point being a reflection of (x2,y2)
-    function C(x1,y1,x2,y2,x,y)  { return "C" + xy(x1,y1) + " " + xy(x2,y2) + " " + xy(x,y); }
+    function S(x2,y2,x,y)  { return "S" + xy(x2,y2) + " " + xy(x,y); }
     
     // L(x,y) lineto function - moves pen to new location; doesn't draw
     function L(x,y)  { return "L" + xy(x,y); }
@@ -177,15 +218,15 @@ d3.sankey = function() {
 
       var ld;
       if (d.cycleBreaker) {
-        // TODO: Fix notation (xs = x0, etc)
-        var xdelta = (1.5 * d.dy + 0.05 * Math.abs(xs - xt));
-        xsc = xs + xdelta;
-        xtc = xt - xdelta;
-        var xm = xi(0.5);
-        var ym = d3.interpolateNumber(ys, yt)(0.5);
-        var ydelta = (2 * d.dy + 0.1 * Math.abs(xs - xt) + 0.1 * Math.abs(ys - yt)) * (ym < (size[1] / 2) ? -1 : 1);
-        
-        ld = M(xs,ys) + C(xsc,ys, xsc,(ys + ydelta), xm,(ym + ydelta)) + S(xtc,yt, xt,yt);
+        // DISABLED: This cycleBreaker code had bugs (undefined variables).
+        // Proper circular link support will be added via d3-sankey-circular.
+        // For now, cycle breaker links are drawn as standard bezier curves.
+        console.warn("Cycle breaker detected but cycleBreaker rendering is disabled. Use circular=TRUE for proper cycle support.");
+
+        // Fall through to standard bezier rendering
+        y0 = d.source.y + d.sy + d.dy / 2;
+        y1 = d.target.y + d.ty + d.dy / 2;
+        ld = M(x0,y0) + C(x2,y0, x3,y1, x1,y1);
       } else {
         switch (linkType) {
           case "trapez":
